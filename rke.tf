@@ -7,7 +7,7 @@ resource "rke_cluster" "rancher_server" {
   dynamic nodes {
     for_each = local.master_instances_ips
     content {
-      address          = nodes.value.public_ip
+      address          = local.use_public_ip_address ? nodes.value.public_ip : nodes.value.private_ip
       internal_address = nodes.value.private_ip
       user             = var.instance_ssh_user
       role             = ["controlplane", "etcd"]
@@ -18,7 +18,7 @@ resource "rke_cluster" "rancher_server" {
   dynamic nodes {
     for_each = local.worker_instances_ips
     content {
-      address          = nodes.value.public_ip
+      address          = local.use_public_ip_address ? nodes.value.public_ip : nodes.value.private_ip
       internal_address = nodes.value.private_ip
       user             = var.instance_ssh_user
       role             = ["worker"]

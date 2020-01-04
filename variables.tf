@@ -211,3 +211,14 @@ variable "creds_output_path" {
   type        = string
   default     = "./"
 }
+
+variable "use_public_ip_address" {
+  type        = bool
+  default     = false
+  description = "Control whether to use public IP address to connect to hosts"
+}
+
+variable "stack_name" {
+  type        = string
+  description = "Cloud Innovation Platform stack name"
+}

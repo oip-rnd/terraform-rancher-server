@@ -43,4 +43,5 @@ locals {
   private_ip = data.aws_instances.rancher_worker.private_ips[c] }] : aws_instance.rancher_worker[*]
 
   use_asgs_for_rancher_infra = var.rancher_nodes_in_asgs
+  use_public_ip_address = var.use_public_ip_address
 }

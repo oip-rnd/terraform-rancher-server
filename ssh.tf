@@ -21,3 +21,15 @@ resource "aws_key_pair" "ssh" {
   key_name_prefix = local.name
   public_key      = tls_private_key.ssh.public_key_openssh
 }
+
+resource "aws_ssm_parameter" "private_rsa_key" {
+  name        = "/${local.name}/id_rsa"
+  type        = "SecureString"
+  value       = tls_private_key.ssh.private_key_pem
+}
+
+resource "aws_ssm_parameter" "public_rsa_key" {
+  name        = "/${local.name}/id_rsa.pub"
+  type        = "SecureString"
+  value       = tls_private_key.ssh.private_key_pem
+}

@@ -8,17 +8,17 @@ data "aws_subnet_ids" "available" {
 }
 
 data "aws_route53_zone" "dns_zone" {
-  provider = aws.r53
   name     = local.r53_domain
+  private_zone = true
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"]
+  owners      = ["099720109477", "837727238323"]
 
   filter {
     name   = "name"
-    values = ["ubuntu-minimal/images/*/ubuntu-bionic-18.04-*"]
+    values = ["ubuntu/images/*/ubuntu-bionic-18.04-*"]
   }
 
   filter {
@@ -55,13 +55,13 @@ data "rancher2_user" "admin" {
 data "aws_instances" "rancher_master" {
   filter {
     name   = "tag:aws:autoscaling:groupName"
-    values = [aws_autoscaling_group.rancher_master.0.name]
+    values = [aws_autoscaling_group.rancher_master.name]
   }
 }
 
 data "aws_instances" "rancher_worker" {
   filter {
     name   = "tag:aws:autoscaling:groupName"
-    values = [aws_autoscaling_group.rancher_worker.0.name]
+    values = [aws_autoscaling_group.rancher_worker.name]
   }
 }
