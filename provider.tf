@@ -1,8 +1,3 @@
-# Defined in top-level module using this module
-#provider "aws" {
-#  region  = var.aws_region
-#  profile = var.aws_profile
-#}
 
 provider "rke" {
 }
